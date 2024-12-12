@@ -33,7 +33,7 @@ function App() {
            path='/:petId'
            element={
             <Suspense fallback={<></>}>
-              <PetDetail/>
+              <PetDetail setPetToEdit={setPetToEdit}/>
             </Suspense>
            }
 

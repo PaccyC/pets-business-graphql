@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.pet-detail-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
