@@ -1,5 +1,5 @@
 
-
+import { getPet,listPets } from '../pets/queries/pets.queries.js'
 export const typeDefs= `#graphql
 
     type Pet {

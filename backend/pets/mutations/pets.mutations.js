@@ -16,6 +16,7 @@ export const editPet = (id,petToEdit) =>{
     try {
         
         const editedPet= editItem(id,petToEdit)
+        return editedPet;
     } catch (error) {
         console.error("Error",error);
         
@@ -26,8 +27,8 @@ export const editPet = (id,petToEdit) =>{
 export const deletePet = id =>{
     try {
         
-        const petsAfterDeletion= deleteItem(id);
-        return petsAfterDeletion;
+        const resp= deleteItem(id);
+        return resp;
     } catch (error) {
         console.error("Error",error);
         
