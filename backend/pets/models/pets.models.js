@@ -24,7 +24,7 @@ export const listItems = ()=>{
 
 export const editItem = (id, data)=>{
     try {
-        const index= db.pets.findIndex(pet =>pet.id === parseInt(id))
+        const index= db.pets.findIndex(pet => pet.id === parseInt(id))
 
         if(index === -1) throw new Error("Pet not found");
         else {
