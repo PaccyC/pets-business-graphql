@@ -56,7 +56,7 @@ console.log("PetID "+petToEdit?.id);
     }
    
       editPet()
-      // navigate(`/${petToEdit?.id}`)
+      navigate("/")
 
     
   }

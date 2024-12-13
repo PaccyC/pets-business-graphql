@@ -1,6 +1,10 @@
 
+import { PrismaClient } from '@prisma/client'
 import { getPet,listPets } from '../pets/queries/pets.queries.js'
 import { deletePet,addPet,editPet } from './mutations/pets.mutations.js'
+
+
+const prisma = new PrismaClient();
 export const typeDefs= `#graphql
 
     type Pet {
@@ -40,7 +44,7 @@ export const typeDefs= `#graphql
     type Mutation {
         addPet(petToAdd: PetToAdd!):Pet,
         editPet(petToEdit: PetToEdit!): Pet,
-        deletePet(id: ID!): [Pet],
+        deletePet(id: ID!): Pet,
     }
 `
 
@@ -48,16 +52,47 @@ export const typeDefs= `#graphql
 export const resolvers = {
     // Resolvers for queries
     Query:{
-      pets: () => listPets(),
-      pet: (_, {id})=> getPet(id),
+      pets: async() => {
+        return await prisma.pet.findMany()
+      },
+      pet: async(_, {id})=> {
+        return await prisma.pet.findUnique({
+            where:{
+                id: parseInt(id)
+            }
+        })
+      },
     },
     // Resolvers for mutations
     Mutation:{
 
-        addPet: (_,{petToAdd})=> addPet(petToAdd) ,
-        deletePet: (_,{id})=>{
-            return deletePet(id);
+        addPet: async(_,{petToAdd})=>{
+        const newPet= await prisma.pet.create({
+                data: petToAdd
+            })
+            return newPet;
+        } ,
+        deletePet: async(_,{id})=>{
+            return await prisma.pet.delete({
+                where:{
+                    id: parseInt(id)
+                }
+            })
         },
-        editPet: (_,{petToEdit})=> editPet(petToEdit),
+        editPet: async(_,{petToEdit})=> {
+            const  pet= await prisma.pet.update({
+                data: {
+                    name: petToEdit.name,
+                    type: petToEdit.type,
+                    age: petToEdit.age,
+                    breed: petToEdit.breed,
+                },
+                where:{
+                    id: parseInt(petToEdit.id,10)
+                }
+            })
+
+            return pet;
+        },
     }
 }
