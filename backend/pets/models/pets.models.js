@@ -57,7 +57,14 @@ export const addItem =(data)=>{
 
 export const deleteItem = (id)=>{
     try {
-        return db.pets.filter((pet)=> pet.id !== parseInt(id));
+          
+        const index= db.pets.findIndex((pet)=> pet.id === parseInt(id))
+        if (index === -1) throw new Error(`Pet with the id ${id} is not found`)
+        else {
+         db.pets.splice(index,1)
+         return db.pets;
+        }
+
     } catch (error) {
         console.error("Error", error);
         return error

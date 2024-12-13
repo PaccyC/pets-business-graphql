@@ -16,7 +16,6 @@ export const ADD_PET= gql `
 `
 
 export const EDIT_PET= gql `
- 
   mutation editPet( $petToEdit: PetToEdit!){
     editPet(petToEdit:  $petToEdit){
         id,
@@ -32,14 +31,9 @@ export const EDIT_PET= gql `
 `
 
 export const DELETE_PET= gql `
-
-  mutation deletePet($petId: ID!){
-    deletePet(id: $petId){
-        id,
-        name,
-        breed,
-        type,
-        age
+  mutation DeletePet($deletePetId: ID!){
+    deletePet(id: $deletePetId){
+        id
     }
   }
 

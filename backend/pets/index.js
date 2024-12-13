@@ -1,5 +1,6 @@
 
 import { getPet,listPets } from '../pets/queries/pets.queries.js'
+import { deletePet,addPet,editPet } from './mutations/pets.mutations.js'
 export const typeDefs= `#graphql
 
     type Pet {
@@ -41,8 +42,6 @@ export const typeDefs= `#graphql
         editPet(petToEdit: PetToEdit!): Pet,
         deletePet(id: ID!): [Pet],
     }
-
-
 `
 
 
@@ -52,10 +51,13 @@ export const resolvers = {
       pets: () => listPets(),
       pet: (_, {id})=> getPet(id),
     },
+    // Resolvers for mutations
     Mutation:{
 
-        addPet: (_,{petToAdd})=> addPet(petToAdd),
+        addPet: (_,{petToAdd})=> addPet(petToAdd) ,
+        deletePet: (_,{id})=>{
+            return deletePet(id);
+        },
         editPet: (_,{petToEdit})=> editPet(petToEdit),
-        deletePet: (_,{id})=> deletePet(id),
     }
 }

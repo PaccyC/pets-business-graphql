@@ -23,7 +23,7 @@ const PetDetail = ({setPetToEdit}:PetDetailProps) => {
 
     const [deletePet, {loading:deleteLoading,error:deleteError, data: deleteData}]= useMutation(DELETE_PET,{
 
-        variables:{petId},
+        variables:{deletePetId:petId},
         // onCompleted: ()=>{
         //     alert(`Pet deleted successfully`)
         // },
@@ -45,7 +45,7 @@ const PetDetail = ({setPetToEdit}:PetDetailProps) => {
                 {(loading || deleteLoading) && <p>Loading...</p>}
                 {error && <p>Error: {error.message}</p>}
 
-                {deleteError && <p>Delete Error: {deleteError.message}</p>}
+                {deleteError && <p style={{color: "red"}}>Delete Error: {deleteError.message}</p>}
             
             
                 {data?.pet && (

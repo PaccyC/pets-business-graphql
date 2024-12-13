@@ -2,9 +2,17 @@
 import { useQuery } from '@apollo/client'
 import { Link } from 'react-router-dom'
 import { GET_PETS } from '../api/queries/queries'
+import { useEffect } from 'react'
 const PetList = () => {
 
-    const {loading,error, data}= useQuery(GET_PETS)
+    const {loading,error, data,refetch}= useQuery(GET_PETS)
+
+    useEffect(()=>{
+
+      if(data){
+        refetch()
+      }
+    },[data,refetch])
   return (
     <>
     <h2>PetList</h2>
