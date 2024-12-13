@@ -6,7 +6,8 @@ export const GET_PETS= gql `
                 id,
                 name,
                 breed, 
-                type
+                type,
+                age
             }
         }
 
@@ -20,7 +21,8 @@ export const GET_PET= gql `
         id,
         name, 
         breed,
-        type
+        type,
+        age
     }
   }
 `

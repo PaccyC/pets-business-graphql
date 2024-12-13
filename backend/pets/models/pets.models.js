@@ -1,5 +1,7 @@
+import { PrismaClient } from "@prisma/client";
 import db from "../../db/db.js"
 
+const prisma = new PrismaClient();
 export const getItem = id => {
     try {
         
@@ -22,11 +24,17 @@ export const listItems = ()=>{
     }
 }
 
+
+
 export const editItem = (id, data)=>{
     try {
-        const index= db.pets.findIndex(pet => pet.id === parseInt(id))
+        const pet= prisma.pet.findUnique({
+            where:{
+                id: parseInt(id)
+            }
+        })
 
-        if(index === -1) throw new Error("Pet not found");
+        if(!pet) throw new Error("Pet not found");
         else {
             data.id = parseInt(data.id)
             db.pets[index]= data;
